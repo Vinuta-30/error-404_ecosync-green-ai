@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EcoSync Dashboard</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="main">
+
+        <header>
+            <h1>EcoSync</h1>
+            <p>Smart Energy Intelligence System</p>
+        </header>
+
+        <div class="grid">
+
+            <!-- Grid Card -->
+            <div class="card big">
+                <h2>Grid Status</h2>
+                <div class="row">
+                    <div>
+                        <p>Supply</p>
+                        <h3 id="supply">100 MW</h3>
+                    </div>
+                    <div>
+                        <p>Demand</p>
+                        <h3 id="demand">130 MW</h3>
+                    </div>
+                </div>
+                <div class="status" id="status">CRITICAL</div>
+            </div>
+
+            <!-- Decision Feed -->
+            <div class="card">
+                <h2>AI Decisions</h2>
+                <ul id="log"></ul>
+            </div>
+
+            <!-- Energy Flow -->
+            <div class="card">
+                <h2>Energy Flow</h2>
+                <p>☀ Solar → City → 🏥 Hospital</p>
+                <p>⚡ Grid → City → 🏢 Mall</p>
+            </div>
+
+            <!-- Carbon -->
+            <div class="card">
+                <h2>Carbon Impact</h2>
+                <div class="meter">
+                    <div id="bar"></div>
+                </div>
+                <p><span id="carbon">30</span>% Saved</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
