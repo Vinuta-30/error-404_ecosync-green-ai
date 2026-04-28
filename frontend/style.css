@@ -1,47 +1,51 @@
 body {
     margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(145deg, #0b0f1a, #111827);
-    color: #e5e7eb;
+    font-family: 'Sora', sans-serif;
+    background: linear-gradient(145deg, #0d1117, #111827);
+    color: #e6edf3;
 }
 
 /* Layout */
-.main {
+.app {
     padding: 30px;
 }
 
-/* Header */
-header h1 {
-    font-family: 'Orbitron', sans-serif;
-    color: #00ffd5;
-    margin: 0;
+/* Topbar */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-header p {
-    opacity: 0.6;
-    margin-bottom: 30px;
+.topbar h1 {
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+#liveStatus {
+    font-size: 14px;
+    color: #22c55e;
 }
 
 /* Grid */
-.grid {
+.dashboard {
+    margin-top: 20px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
+    gap: 20px;
 }
 
-/* Card */
+/* Cards */
 .card {
-    padding: 20px;
+    background: rgba(255,255,255,0.04);
     border-radius: 20px;
+    padding: 20px;
 
-    /* Glass */
-    background: rgba(255, 255, 255, 0.167);
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(20px);
 
-    /* Neumorphism */
-    box-shadow: 
-        8px 8px 20px #0a0e18,
-        -8px -8px 20px #141c2a;
+    box-shadow:
+        8px 8px 25px rgba(0,0,0,0.6),
+        -4px -4px 15px rgba(255,255,255,0.03);
 
     transition: 0.3s;
 }
@@ -50,13 +54,13 @@ header p {
     transform: translateY(-6px);
 }
 
-/* Bigger Card */
-.big {
+/* Large card */
+.large {
     grid-column: span 2;
 }
 
-/* Row */
-.row {
+/* Stats */
+.stats {
     display: flex;
     justify-content: space-between;
 }
@@ -67,15 +71,21 @@ header p {
     padding: 10px;
     border-radius: 10px;
     text-align: center;
-    font-weight: bold;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
 }
 
-.critical { background: rgba(255,0,0,0.2); }
-.warning { background: rgba(255,200,0,0.2); }
-.stable { background: rgba(0,255,150,0.2); }
+.critical { background: rgba(239,68,68,0.2); }
+.warning { background: rgba(234,179,8,0.2); }
+.stable { background: rgba(34,197,94,0.2); }
 
-/* Meter */
-.meter {
+/* Chart */
+canvas {
+    margin-top: 10px;
+}
+
+/* Progress */
+.progress {
     height: 8px;
     background: rgba(255,255,255,0.1);
     border-radius: 10px;
@@ -84,12 +94,23 @@ header p {
 
 #bar {
     height: 100%;
-    width: 30%;
-    background: linear-gradient(90deg, #00ffd5, #00aaff);
+    width: 0%;
+    background: linear-gradient(90deg, #22c55e, #4ade80);
     transition: 0.5s;
 }
 
-/* Titles */
+/* Text */
 h2 {
-    color: #00ffd5;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+h3 {
+    font-size: 26px;
+    margin: 5px 0;
 }

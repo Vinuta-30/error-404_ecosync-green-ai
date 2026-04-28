@@ -1,39 +1,85 @@
-function addLog(msg) {
-    const log = document.getElementById("log");
-    const li = document.createElement("li");
-    li.textContent = msg;
-    log.prepend(li);
+let chart;
 
-    if (log.children.length > 5) {
-        log.removeChild(log.lastChild);
+function initChart() {
+    const ctx = document.getElementById("chart").getContext("2d");
+
+    chart = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: [],
+            datasets: [
+                {
+                    label: "Supply",
+                    data: [],
+                    borderColor: "#22c55e",
+                    tension: 0.4
+                },
+                {
+                    label: "Demand",
+                    data: [],
+                    borderColor: "#ef4444",
+                    tension: 0.4
+                }
+            ]
+        },
+        options: {
+            plugins: {
+                legend: { labels: { color: "#ccc" } }
+            },
+            scales: {
+                x: { ticks: { color: "#aaa" } },
+                y: { ticks: { color: "#aaa" } }
+            }
+        }
+    });
+}
+
+async function fetchData() {
+    try {
+        const res = await fetch("http://127.0.0.1:5000/simulate");
+        const data = await res.json();
+
+        let supply = data.supply;
+        let demand = data.demand;
+        let result = data.result;
+
+        document.getElementById("supply").textContent = supply + " MW";
+        document.getElementById("demand").textContent = demand + " MW";
+
+        let statusEl = document.getElementById("status");
+        statusEl.textContent = result.status;
+        statusEl.className = "status " + result.status.toLowerCase();
+
+        // Logs
+        const log = document.getElementById("log");
+        log.innerHTML = "";
+        result.actions.forEach(action => {
+            let li = document.createElement("li");
+            li.textContent = action;
+            log.appendChild(li);
+        });
+
+        // Carbon
+        let carbon = Math.floor(Math.random() * 50) + 20;
+        document.getElementById("carbon").textContent = carbon;
+        document.getElementById("bar").style.width = carbon + "%";
+
+        // Chart update
+        if (chart.data.labels.length > 10) {
+            chart.data.labels.shift();
+            chart.data.datasets[0].data.shift();
+            chart.data.datasets[1].data.shift();
+        }
+
+        chart.data.labels.push("");
+        chart.data.datasets[0].data.push(supply);
+        chart.data.datasets[1].data.push(demand);
+        chart.update();
+
+    } catch (err) {
+        console.error(err);
     }
 }
 
-setInterval(() => {
-
-    let supply = Math.floor(Math.random() * 50) + 80;
-    let demand = Math.floor(Math.random() * 60) + 90;
-    let carbon = Math.floor(Math.random() * 60) + 20;
-
-    document.getElementById("supply").textContent = supply + " MW";
-    document.getElementById("demand").textContent = demand + " MW";
-    document.getElementById("carbon").textContent = carbon;
-    document.getElementById("bar").style.width = carbon + "%";
-
-    let statusEl = document.getElementById("status");
-
-    if (demand > supply) {
-        statusEl.textContent = "CRITICAL";
-        statusEl.className = "status critical";
-        addLog("⚠ High load — EV charging paused");
-    } else if (demand > supply - 10) {
-        statusEl.textContent = "WARNING";
-        statusEl.className = "status warning";
-        addLog("⚠ Adjusting grid...");
-    } else {
-        statusEl.textContent = "STABLE";
-        statusEl.className = "status stable";
-        addLog("✅ Stable operation");
-    }
-
-}, 3000);
+initChart();
+setInterval(fetchData, 3000);
