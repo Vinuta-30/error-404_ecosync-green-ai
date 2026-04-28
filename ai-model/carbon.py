@@ -32,8 +32,8 @@ for demand in df["demand"]:
 
 saved = ((normal_total - optimized_total) / normal_total) * 100
 
-print("Carbon Without EcoSync:", round(normal_total,2), "kg CO2")
-print("Carbon With EcoSync:", round(optimized_total,2), "kg CO2")
+print("Carbon Without EcoSync:", round(normal_total,2), "tons CO2")
+print("Carbon With EcoSync:", round(optimized_total,2), "tons CO2")
 print("Carbon Saved:", round(saved,2), "%")
 
 if saved > 25:

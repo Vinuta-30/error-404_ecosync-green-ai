@@ -17,9 +17,9 @@ for hour in range(1, 25):
     pred = model.predict(pd.DataFrame([[hour]], columns=["hour"]))[0]
 
     status = "✅ Stable"
-    if pred > 90:
+    if pred > 35000:
         status = "⚠ High Demand"
-    elif pred > 70:
+    elif pred > 32000:
         status = "🟡 Medium Load"
 
     print(f"Hour {hour}:00 -> {round(pred,2)} MW | {status}")

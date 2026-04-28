@@ -8,13 +8,13 @@ for _, row in df.iterrows():
     hour = row["hour"]
     demand = row["demand"]
 
-    if demand > 90:
+    if demand > 35000:
         print(f"Hour {hour}:00 ⚠ Peak Load")
         print("   ➜ Delay EV charging")
         print("   ➜ Use battery backup")
         print("   ➜ Prioritize hospitals")
 
-    elif demand > 70:
+    elif demand > 32000:
         print(f"Hour {hour}:00 🟡 Medium Load")
         print("   ➜ Dim streetlights by 10%")
 
