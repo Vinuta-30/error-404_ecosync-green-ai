@@ -1,25 +1,17 @@
 import pandas as pd
-from sklearn.linear_model import LinearRegression
+import random
 
-# Load dataset
-df = pd.read_csv("data/energy_data.csv")
+def predict():
+    df = pd.read_csv("data/energy_data.csv")
 
-X = df[["hour"]]
-y = df["demand"]
+    latest = df.iloc[-1]
 
-# Train model
-model = LinearRegression()
-model.fit(X, y)
+    demand = int(latest["demand"])
 
-print("=== Full Day Demand Prediction ===")
+    # Generate realistic supply
+    supply = demand + random.randint(-2000, 2000)
 
-for hour in range(1, 25):
-    pred = model.predict(pd.DataFrame([[hour]], columns=["hour"]))[0]
-
-    status = "✅ Stable"
-    if pred > 35000:
-        status = "⚠ High Demand"
-    elif pred > 32000:
-        status = "🟡 Medium Load"
-
-    print(f"Hour {hour}:00 -> {round(pred,2)} MW | {status}")
+    return {
+        "supply": supply,
+        "demand": demand
+    }

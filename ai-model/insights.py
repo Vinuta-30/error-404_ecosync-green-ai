@@ -1,22 +1,22 @@
 import pandas as pd
+import os
 
-print("=== EcoSync Smart Recommendations ===")
+def generate_insight(supply, demand):
+    try:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        file_path = os.path.join(base_dir, "data", "energy_data.csv")
 
-df = pd.read_csv("data/energy_data.csv")
+        print("Reading file from:", file_path)  # DEBUG
 
-for _, row in df.iterrows():
-    hour = row["hour"]
-    demand = row["demand"]
+        df = pd.read_csv(file_path)
 
-    if demand > 35000:
-        print(f"Hour {hour}:00 ⚠ Peak Load")
-        print("   ➜ Delay EV charging")
-        print("   ➜ Use battery backup")
-        print("   ➜ Prioritize hospitals")
+    except Exception as e:
+        print("ERROR:", e)
 
-    elif demand > 32000:
-        print(f"Hour {hour}:00 🟡 Medium Load")
-        print("   ➜ Dim streetlights by 10%")
-
+    # Your logic (independent of file for now)
+    if demand > supply:
+        return "⚠ Demand exceeds supply. Optimize distribution."
+    elif demand > 0.8 * supply:
+        return "🟡 Demand nearing capacity."
     else:
-        print(f"Hour {hour}:00 ✅ Stable")
+        return "✅ System stable."

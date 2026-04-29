@@ -1,71 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>EcoSync Dashboard</title>
+  <meta charset="UTF-8">
+  <title>EcoSync AI Dashboard</title>
 
-    <!-- Premium Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;500;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+  <!-- Premium Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
 
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+<div class="app-bg"></div>
+<nav class="navbar glass">
+  <div class="brand">GridMind</div>
+  <div class="nav-right">
+    <span id="liveStatus" class="live-pill">
+      <span class="live-dot"></span>
+      <span>LIVE</span>
+    </span>
+    <span id="lastUpdated" class="last-updated">Last Updated: --:--:--</span>
+    <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle theme">🌙</button>
+  </div>
+</nav>
 
-<div class="app">
+<div class="container">
 
-    <header class="topbar">
-        <h1>EcoSync</h1>
-        <span id="liveStatus">● Live</span>
-    </header>
+  <h1>⚡ EcoSync AI Grid</h1>
+  <p class="subtitle">Intelligent power orchestration in real time</p>
 
-    <div class="dashboard">
+  <div class="grid">
 
-        <!-- Grid Card -->
-        <div class="card large">
-            <h2>Grid Overview</h2>
-
-            <div class="stats">
-                <div>
-                    <p>Supply</p>
-                    <h3 id="supply">--</h3>
-                </div>
-
-                <div>
-                    <p>Demand</p>
-                    <h3 id="demand">--</h3>
-                </div>
-            </div>
-
-            <div id="status" class="status">Loading...</div>
-        </div>
-
-        <!-- Chart -->
-        <div class="card">
-            <h2>Energy Trend</h2>
-            <canvas id="chart"></canvas>
-        </div>
-
-        <!-- AI Decisions -->
-        <div class="card">
-            <h2>AI Decisions</h2>
-            <ul id="log"></ul>
-        </div>
-
-        <!-- Carbon -->
-        <div class="card">
-            <h2>Carbon Efficiency</h2>
-            <div class="progress">
-                <div id="bar"></div>
-            </div>
-            <p><span id="carbon">--</span>% saved</p>
-        </div>
-
+    <div class="card metric-card loading">
+      <div class="card-icon">⚡</div>
+      <h2>Supply</h2>
+      <p id="supply">--</p>
+      <p id="supplyTrend" class="trend">--</p>
+      <div class="skeleton-line"></div>
     </div>
 
+    <div class="card metric-card loading">
+      <div class="card-icon">🔋</div>
+      <h2>Demand</h2>
+      <p id="demand">--</p>
+      <p id="demandTrend" class="trend">--</p>
+      <div class="skeleton-line"></div>
+    </div>
+
+    <div class="card metric-card loading">
+      <div class="card-icon">🧠</div>
+      <h2>Status</h2>
+      <p id="status" class="status">--</p>
+      <p id="statusTrend" class="trend">--</p>
+      <div class="skeleton-line"></div>
+    </div>
+
+    <div class="card metric-card loading">
+      <div class="card-icon">🌍</div>
+      <h2>Carbon</h2>
+      <div class="progress">
+        <div id="bar"></div>
+      </div>
+      <p id="carbon">--</p>
+      <p id="carbonTrend" class="trend">--</p>
+      <div class="skeleton-line"></div>
+    </div>
+
+  </div>
+
+  <div class="card big loading" id="chartCard">
+    <h2>Energy Trend</h2>
+    <canvas id="chart"></canvas>
+    <div class="skeleton-chart"></div>
+  </div>
+
+  <div class="card big loading" id="insightCard">
+    <h2>AI Insights</h2>
+    <p id="insight">--</p>
+    <div class="skeleton-line"></div>
+  </div>
+
 </div>
+
+<div id="toast" class="toast">Data updated</div>
 
 <script src="script.js"></script>
 </body>

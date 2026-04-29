@@ -1,20 +1,16 @@
 import pandas as pd
-from sklearn.linear_model import LinearRegression
+import os
 
-df = pd.read_csv("data/energy_data.csv")
+# Get correct path to CSV
+base_dir = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.join(base_dir, "data", "energy_data.csv")
 
-X = df[["hour"]]
-y = df["demand"]
-
-model = LinearRegression()
-model.fit(X, y)
+df = pd.read_csv(file_path)
 
 def generate_insight(supply, demand):
-    pred = model.predict([[12]])[0]
-
-    if demand > 90:
-        return "⚠ High demand predicted. AI suggests load balancing."
-    elif demand > 70:
-        return "🟡 Moderate load. Optimizing energy usage."
+    if demand > supply:
+        return "⚠ Demand exceeds supply. Optimize distribution."
+    elif demand > 0.8 * supply:
+        return "🟡 Demand nearing capacity. Monitor closely."
     else:
-        return "✅ Grid stable and efficient."
+        return "✅ System stable and efficient."

@@ -1,12 +1,22 @@
 import pandas as pd
+import random
+import os
 
 def predict():
-    df = pd.read_csv("data/energy_data.csv")
+    # Correct absolute path
+    base_dir = os.path.dirname(__file__)
+    file_path = os.path.join(base_dir, "data", "energy_data.csv")
 
-    # Take latest row (simulate current time)
+    df = pd.read_csv(file_path)
+
     latest = df.iloc[-1]
 
+    demand = int(latest["demand"])
+
+    # Generate realistic supply
+    supply = demand + random.randint(-2000, 2000)
+
     return {
-        "supply": int(latest["supply"]),
-        "demand": int(latest["demand"])
+        "supply": supply,
+        "demand": demand
     }
